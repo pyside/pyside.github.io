@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0102</h1>
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">102</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">Use Python properties instead of getters and setters</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">$Revision$</td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/master/psep-0102.txt">$Date$</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Hugo Parente Lima &lt;hugo.lima&#32;&#97;t&#32;openbossa.org&gt;</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Draft</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Standards Track</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="http://www.python.org/dev/pseps/psep-0012">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">15-Jun-2010</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#abstract" id="id2">Abstract</a></li>
+<li><a class="reference internal" href="#rationale" id="id3">Rationale</a></li>
+<li><a class="reference internal" href="#property-names-and-name-clashes" id="id4">Property names and name clashes</a></li>
+<li><a class="reference internal" href="#compatibility" id="id5">Compatibility</a></li>
+<li><a class="reference internal" href="#references" id="id6">References</a></li>
+<li><a class="reference internal" href="#copyright" id="id7">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id2">Abstract</a></h1>
+<p>Python properties are the Python way of writing what is known in the C++
+and Java world as getters and setters. This PSEP proposes the conversion
+of Qt getters and setters to Python properties.</p>
+</div>
+<div class="section" id="rationale">
+<h1><a class="toc-backref" href="#id3">Rationale</a></h1>
+<p>A Qt property <a class="footnote-reference" href="#qtproperties" id="id1">[1]</a> is basically formed by a property name, a
+getter, and a setter method (the last one of which may be omitted for
+read-only properties).  There are other fields but none of them are
+important for the scope of this PSEP.</p>
+<p>The purpose of this PSEP is to use Python properties instead of getters
+and setters to make PySide much more attractive to Python programmers,
+avoiding the cumbersome and un-Pythonic getter/setter idiom.</p>
+</div>
+<div class="section" id="property-names-and-name-clashes">
+<h1><a class="toc-backref" href="#id4">Property names and name clashes</a></h1>
+<p>The property names will be the same as the Qt property names, if
+possible.</p>
+<p>According to Qt property naming conventions, if a property is called
+<tt class="docutils literal"><span class="pre">foo</span></tt>, the getter is called <tt class="docutils literal"><span class="pre">foo()</span></tt> and the setter <tt class="docutils literal"><span class="pre">setFoo(...)</span></tt>,
+unless <tt class="docutils literal"><span class="pre">foo</span></tt> is a boolean. In that case, the getter can be either
+<tt class="docutils literal"><span class="pre">isFoo</span></tt> or <tt class="docutils literal"><span class="pre">hasFoo</span></tt>, depending on the context. So the name clashes
+probably can occur only on boolean properties where the getter name is
+different from the property name. However, the Qt API was specially
+crafted to avoid these clashes. If any should occur nevertheless, the
+conflicting Python property shall be renamed to resolve the overlap.</p>
+</div>
+<div class="section" id="compatibility">
+<h1><a class="toc-backref" href="#id5">Compatibility</a></h1>
+<p>The proposed API is incompatible with the existing PySide and PyQt API.
+Since PySide is not yet widely used and has not reached version 1.0.0, it
+seems reasonable to break compatibility for the sake of getting PySide
+&quot;right&quot;.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id6">References</a></h1>
+<table class="docutils footnote" frame="void" id="qtproperties" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Qt's Property System
+(<a class="reference external" href="http://doc.trolltech.com/latest/properties.html">http://doc.trolltech.com/latest/properties.html</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id7">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>
