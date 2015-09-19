@@ -17,7 +17,7 @@ Example
 
 ::
 
-    @ClassInfo(Author='PySide Team', URL='http://www.pyside.org')
+    @ClassInfo(Author='PySide Team', URL='https://pyside.github.io')
     class MyObject(QObject):
         ...
 

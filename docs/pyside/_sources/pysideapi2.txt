@@ -7,7 +7,7 @@ PySide API 2
 Since the beginning one of the PySide goals was to be API compatible with PyQt4,
 but with some (documented) exceptions. For example, PySide will not export to
 Python components marked as deprecated on C++ Qt. All the modifications follow
-the `PSEP101 <http://www.pyside.org/docs/pseps/psep-0101.html>`_ as its guideline.
+the `PSEP101 <https://pyside.github.io/docs/pseps/psep-0101.html>`_ as its guideline.
 
 The release 4.7 of PyQt4 came with improvements on the pythonic front, being
 the extinction of QString a good example. PySide followed this change, except in
