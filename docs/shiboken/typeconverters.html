@@ -31,7 +31,7 @@
 <div id="container">
 <div class="header">
     <div class="header_container">
-        <div class="logo"><a href="http://www.pyside.org"><img alt="PySide" src="_static/pysidelogo.png" width="199" height="102" /></a></div>
+        <div class="logo"><a href="https://pyside.github.io"><img alt="PySide" src="_static/pysidelogo.png" width="199" height="102" /></a></div>
   
     <div class="related">
       <h3>Navigation</h3>
@@ -132,18 +132,18 @@
 </div>
 </div></blockquote>
 <p>The details will be given later, but the gist of it are the tags
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#native-to-target">&lt;native-to-target&gt;</a>,
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#native-to-target">&lt;native-to-target&gt;</a>,
 which has only one conversion from C++ to Python, and
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#target-to-native">&lt;target-to-native&gt;</a>,
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#target-to-native">&lt;target-to-native&gt;</a>,
 that may define the conversion of multiple Python types to C++&#8217;s &#8220;Complex&#8221; type.</p>
 <a class="reference internal image-reference" href="_images/converter.png"><img alt="_images/converter.png" class="align-center" src="_images/converter.png" style="height: 240px;" /></a>
-<p>Shiboken expects the code for <a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#native-to-target">&lt;native-to-target&gt;</a>,
+<p>Shiboken expects the code for <a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#native-to-target">&lt;native-to-target&gt;</a>,
 to directly return the Python result of the conversion, and the added conversions inside the
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#target-to-native">&lt;target-to-native&gt;</a>
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#target-to-native">&lt;target-to-native&gt;</a>
 must attribute the Python to C++ conversion result to the <a class="reference internal" href="#out"><em>%out</em></a> variable.</p>
 <p>Expanding on the last example, if the binding developer want a Python 2-tuple of numbers to be accepted
 by wrapped C++ functions with &#8220;Complex&#8221; arguments, an
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#add-conversion">&lt;add-conversion&gt;</a>
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#add-conversion">&lt;add-conversion&gt;</a>
 tag and a custom check must be added. Here&#8217;s how to do it:</p>
 <blockquote>
 <div><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- Code injection at module level. --&gt;</span>
@@ -197,7 +197,7 @@ static bool Check2TupleOfNumbers(PyObject* pyIn) {
 <div class="section" id="container-conversions">
 <span id="id3"></span><h2>6.1. Container Conversions<a class="headerlink" href="#container-conversions" title="Permalink to this headline">¶</a></h2>
 <p>Converters for
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_specifying_types.html#container-type">&lt;container-type&gt;</a>
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_specifying_types.html#container-type">&lt;container-type&gt;</a>
 are pretty much the same as for other type, except that they make use of the type system variables
 <a class="reference internal" href="#intype-n"><em>%INTYPE_#</em></a> and <a class="reference internal" href="#outtype-n"><em>%OUTTYPE_#</em></a>. Shiboken combines the conversion code for
 containers with the conversion defined (or automatically generated) for the containees.</p>
@@ -313,7 +313,7 @@ to the new scheme.</p>
 are the ones in the two last method <tt class="docutils literal"><span class="pre">static</span> <span class="pre">inline</span> <span class="pre">PyObject*</span> <span class="pre">toPython(const</span> <span class="pre">Complex&amp;</span> <span class="pre">cpx)</span></tt>
 and <tt class="docutils literal"><span class="pre">static</span> <span class="pre">inline</span> <span class="pre">Complex</span> <span class="pre">toCpp(PyObject*</span> <span class="pre">pyobj)</span></tt>. The <tt class="docutils literal"><span class="pre">isConvertible</span></tt> method is gone,
 and the <tt class="docutils literal"><span class="pre">checkType</span></tt> is now an attribute of the
-<a class="reference external" href="http://www.pyside.org/docs/apiextractor/typesystem_conversionrule.html#add-conversion">&lt;add-conversion&gt;</a>
+<a class="reference external" href="https://pyside.github.io/docs/apiextractor/typesystem_conversionrule.html#add-conversion">&lt;add-conversion&gt;</a>
 tag. Refer back to the first example in this page and you will be able to correlate the above template
 with the new scheme of conversion rule definition.</p>
 </div>

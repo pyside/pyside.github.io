@@ -60,7 +60,7 @@ Variables
   the argument so completely that it doesn't appear in any form on the
   ``%ARGUMENT_NAMES`` replacement, don't forget to remove also its default value
   with the `<remove-default-expression/>
-  <http://www.pyside.org/docs/apiextractor/typesystem_arguments.html#remove-default-expression>`_
+  <https://pyside.github.io/docs/apiextractor/typesystem_arguments.html#remove-default-expression>`_
   type system tag.
 
   Take the following method and related type system description as an example:
