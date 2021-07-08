@@ -1,0 +1,149 @@
+PSEP: 0106
+Title: Shiboken helper module
+Version: $Revision$
+Last-Modified: $Date$
+Author: Hugo Parente Lima <hugo.lima@openbossa.org>
+Status: Accepted
+Type: Standards Track
+Content-Type: text/x-rst
+Created: 02-Aug-2011
+Post-History: 05-Aug-2011, 12-Aug-2011, 05-Sep-2011
+
+.. |maya| unicode:: Maya U+2122
+
+Abstract
+========
+
+This PSEP describes a new module to access internal information related
+to our binding technology. Access to this internal information is
+required to e.g.: integrate PySide with Qt based programs that offer
+Python scripting like |maya| or just for debug purposes.
+
+Rationale
+=========
+
+When developing Python bindings for native libraries, information about
+the internal state of a Python object is commonly needed. A separate
+module with functions to query this information can help creating
+better unit tests. In addition to the debugging context, access to the
+internal state of Python objects may be needed to integrate Shiboken-based
+bindings with other technologies such as |maya| or other software using
+Qt and Python.
+
+
+Description of the Shiboken module
+==================================
+
+The Python module named "shiboken" will offer the following functions:
+
+Some function descriptions refer to "Shiboken based objects" which mean
+Python object instances of any Python type created using Shiboken.
+
+``isValid(obj)``
+
+    Given a Python object, returns True if the object methods can be called
+    without an exception being thrown. A Python wrapper becomes invalid when
+    the underlying C++ object is destroyed or unreachable.
+
+``invalidate(obj)``
+
+    Mark the object as invalid, so the underlying C++ object will not be
+    destroyed by Shiboken and any use of this object will raise an exception.
+
+``wrapInstance(address, type)``
+
+    Creates a Python wrapper for a C++ object instantiated at a given memory
+    address - the returned object type will be the same given by the user.
+
+    The type must be a Shiboken type, the C++ object will not be
+    destroyed when the returned Python object reach zero references.
+
+    If the address is invalid or does not point to a C++ object of given type,
+    use of the wrapped object may result in a segmentation fault or other
+    undefined behaviour.
+
+``getCppPointer(obj)``
+
+    Returns a tuple of longs that contain the memory addresses of the
+    C++ instances wrapped by the given object.
+
+``delete(obj)``
+
+    Deletes the C++ object wrapped by the given Python object.
+
+``ownedByPython(obj)``
+
+    Given a Python object, returns True if Python is responsible for deleting
+    the underlying C++ object, False otherwise.
+
+    If the object was not a Shiboken based object, a TypeError is
+    thrown.
+
+``createdByPython(obj)``
+
+    Returns true if the given Python object was created by Python.
+
+``dump(obj)``
+
+    Returns a string with implementation-defined information about the
+    object.
+    This method should be used **only** for debug purposes by developers
+    creating their own bindings as no guarantee is provided that
+    the string format will be the same across different versions.
+
+    If the object is not a Shiboken based object, a TypeError is thrown.
+
+``__version__``
+
+    String with Shiboken version.
+
+``__version_info__``
+
+    A tuple containing the five components of the version number: major,
+    minor, micro, releaselevel, and serial.
+
+Discussion
+==========
+
+Carlo Giesa wanted to do some integration of PySide with |maya| [#maya]_
+and noticed that PySide doesn't have anything equivalent to PyQt4
+``sip.wrapinstance()``.
+
+David Martínez Martí filed a feature request [#bug536]_ for a function to
+return True or False if an object still valid or not.
+
+Thomas Perl filed feature request [#bug902]_ summarizing some
+functions that should appear in a helper module.
+
+Sebastian Wiesner requested to have an inverse of ``wrapInstance(type,
+address)`` to be able to pass PySide-created objects to native Qt
+libraries.
+
+Matti Airas suggested that a review of PyQt's ``sip`` module should be
+made and all relevant methods from there added to this PSEP.
+
+References
+==========
+
+.. [#bug536] `Bug 536 <http://bugs.pyside.org/show_bug.cgi?id=536>`_ -
+   Add property to QObject that exposes if a C++ reference is still valid.
+.. [#bug902] `Bug 902 <http://bugs.pyside.org/show_bug.cgi?id=902>`_ -
+   Expose Shiboken functionality through a Python module.
+.. [#maya] A 3D Animation, Visual Effects & Compositing Software -
+   http://usa.autodesk.com/maya/
+
+Copyright
+=========
+
+This document has been placed in the public domain.
+
+
+
+..
+   Local Variables:
+   mode: indented-text
+   indent-tabs-mode: nil
+   sentence-end-double-space: t
+   fill-column: 70
+   coding: utf-8
+   End:

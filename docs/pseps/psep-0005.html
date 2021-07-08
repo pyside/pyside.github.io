@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0005</h1>
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">5</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">Guidelines for implementing backwards-incompatible changes</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">$Revision$</td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/master/psep-0005.txt">$Date$</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Matti Airas &lt;matti.p.airas&#32;&#97;t&#32;nokia.com&gt;</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Active</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Process</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">06-Oct-2009</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#abstract" id="id3">Abstract</a></li>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a></li>
+<li><a class="reference internal" href="#api-update-strategies" id="id5">API Update Strategies</a><ul>
+<li><a class="reference internal" href="#changing-the-existing-api" id="id6">Changing the existing API</a></li>
+<li><a class="reference internal" href="#coinciding-the-api-break-with-python-3-transition" id="id7">Coinciding the API break with Python 3 transition</a></li>
+<li><a class="reference internal" href="#separate-imports-for-different-api-versions" id="id8">Separate imports for different API versions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#selected-api-update-strategy" id="id9">Selected API update strategy</a></li>
+<li><a class="reference internal" href="#references" id="id10">References</a></li>
+<li><a class="reference internal" href="#copyright" id="id11">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id3">Abstract</a></h1>
+<p>There exists a strong interest for implementing new, partially
+backwards-incompatible API features to PySide. However, simply modifying
+the existing API would break any existing applications, so such
+modifications need to be done in a controlled manner. This PSEP sets the
+guidelines for implementing backwards-incompatible changes in PySide.</p>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id4">Introduction</a></h1>
+<p>The idea of improving the PySide API by making it more Pythonic was
+presented already during the project launch. Soon thereafter, several
+ideas were discussed, but at that point the design process and a clear
+implementation roadmap was still undefined.</p>
+<p>The planned API update coincides temporally with plans to implement Python 3
+support in PySide. While these changes do not necessarily depend on each other,
+Python 3 requires considerable changes in PySide and is backwards-incompatible
+by itself. As the API changes have a similar scope, special emphasis will be
+placed on whether or not to perform both of the non-backward compatible changes
+together.</p>
+<p>This PSEP discusses the different proposed update strategies together
+with their pros and cons and then proceeds to select one specific
+strategy for the PySide API updates.</p>
+</div>
+<div class="section" id="api-update-strategies">
+<h1><a class="toc-backref" href="#id5">API Update Strategies</a></h1>
+<div class="section" id="changing-the-existing-api">
+<h2><a class="toc-backref" href="#id6">Changing the existing API</a></h2>
+<p>The simplest method of updating the API is just to change the existing
+API. This is obviously very simple for the developers, and there exists
+only one API at any given time. However, any existing applications
+depending on PySide would need to be constantly updated. Any amount of
+such changes would in practice discourage any developers from using
+PySide, and therefore, this approach would only be possible at the very
+early stages of any project when there are not yet any applications
+using the project.</p>
+</div>
+<div class="section" id="coinciding-the-api-break-with-python-3-transition">
+<h2><a class="toc-backref" href="#id7">Coinciding the API break with Python 3 transition</a></h2>
+<p>Python 3 is backwards incompatible with older Python versions both at
+the syntax and the standard library API levels. Since the users would
+need to adapt their code in any case, the thought of simultaneously
+updating the PySide API is an enticing one. The approach is tempting
+also from the API developers' perspective. Since Python 3 breaks the
+extension API compatibility in any case, this strategy cleanly splits
+the code to the old and the new APIs under the hood as well.</p>
+<p>On the other hand, one might argue that the tandem update strategy will
+actually be more difficult to implement in practice. Not only will there
+be changes due to the Python 3 transition, but the visible API behaviour
+will be changed as well. In practice, the two changes would need to be
+performed sequentially to implement the features in a controlled manner.</p>
+<p>The tandem update strategy would lead to a difficult upgrade path for
+existing applications. The recommended development model for upgrading
+from Python 2 to 3 is to utilize a specific <tt class="docutils literal"><span class="pre">2to3</span></tt> script to convert
+the script from Python 2.6 to the 3 syntax <a class="footnote-reference" href="#pep-3000" id="id1">[2]</a>. This will not
+work if the APIs are modified in an incompatible manner at the same
+time. With the library APIs breaking simultaneously, the developer would
+have no idea whether the problems in his application are due to the
+Python or the PySide changes.</p>
+<p>When considering the alternatives, it is of importance that the tandem
+update strategy has been discouraged by Python core developers
+<a class="footnote-reference" href="#guido-re-incompat" id="id2">[1]</a>, to a great extent due to the reasons discussed
+above.</p>
+</div>
+<div class="section" id="separate-imports-for-different-api-versions">
+<h2><a class="toc-backref" href="#id8">Separate imports for different API versions</a></h2>
+<p>The final API upgrade strategy is to disconnect the upgrade altogether
+from the Python version upgrade. In this case, the
+backwards-incompatible API would be placed in its own module. For
+example, the current <tt class="docutils literal"><span class="pre">QtCore</span></tt> library is imported using:</p>
+<pre class="literal-block">
+import PySide.QtCore
+</pre>
+<p>The new API would then utilize a different import:</p>
+<pre class="literal-block">
+import PySideFoo.QtCoreBar
+</pre>
+<p>This approach might arguably actually simplify implementing the new
+features as they would be only simple steps on top of the old API.
+Furthermore, Python 3 porting would only focus on the extension API
+differences instead of mixing the PySide API changes in the issue.
+For users, separate imports would provide for a standard upgrade path,
+removing any extra barriers for upgrading to Python 3.</p>
+<p>The main drawback in this approach is the potentially increased
+maintenance effort. Two sets of APIs on two major Python versions need
+to be maintained. This may tie down the developers and decrease general
+project velocity.</p>
+</div>
+</div>
+<div class="section" id="selected-api-update-strategy">
+<h1><a class="toc-backref" href="#id9">Selected API update strategy</a></h1>
+<p>From the update strategy alternatives discussed in the previous section,
+the last one (separate imports for different API versions) will be
+chosen as the PySide update strategy. Having separate imports provides
+the safest upgrade path both for the internal PySide developers and for
+any projects depending on PySide. Any specifics such as the new import
+names will be dealt with in a separate PSEP.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id10">References</a></h1>
+<table class="docutils footnote" frame="void" id="guido-re-incompat" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Python 3000 and You, Van Rossum
+(<a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=227041">http://www.artima.com/weblogs/viewpost.jsp?thread=227041</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="pep-3000" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>PEP 3000, Van Rossum
+(<a class="reference external" href="http://www.python.org/dev/peps/pep-3000/">http://www.python.org/dev/peps/pep-3000/</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id11">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+<!-- Local Variables:
+mode: indented-text
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+coding: utf-8
+End: -->
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>

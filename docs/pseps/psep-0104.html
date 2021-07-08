@@ -1,0 +1,280 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0104</h1>
+
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">104</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">Decorator syntax for declaring Qt meta-object properties</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0104.txt">1</a></td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0104.txt">15-Aug-2011</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Matti Airas &lt;matti.p.airas at nokia.com&gt;</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Draft</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Standards Track</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">19-Oct-2010</td>
+</tr>
+<tr class="field"><th class="field-name">Post-History:</th><td class="field-body">19-Oct-2010, 20-Oct-2010</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#abstract" id="id3">Abstract</a></li>
+<li><a class="reference internal" href="#rationale" id="id4">Rationale</a></li>
+<li><a class="reference internal" href="#property-decorator-syntax" id="id5">Property Decorator Syntax</a></li>
+<li><a class="reference internal" href="#discussion" id="id6">Discussion</a></li>
+<li><a class="reference internal" href="#compatibility" id="id7">Compatibility</a></li>
+<li><a class="reference internal" href="#references" id="id8">References</a></li>
+<li><a class="reference internal" href="#contributors" id="id9">Contributors</a></li>
+<li><a class="reference internal" href="#copyright" id="id10">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id3">Abstract</a></h1>
+<p>This PSEP describes a method to declare Qt meta-object properties in
+PySide using an alternative syntax based on function decorators. The
+presented syntax is directly analogous to the Python property decorator
+syntax introduced in Python 2.6.</p>
+</div>
+<div class="section" id="rationale">
+<h1><a class="toc-backref" href="#id4">Rationale</a></h1>
+<p>Traditional Python properties can be defined using a syntax given below
+<a class="footnote-reference" href="#pythonprops" id="id1">[1]</a>:</p>
+<pre class="literal-block">class C(object):
+    def __init__(self):
+        self._x = None
+
+    def getx(self):
+        return self._x
+    def setx(self, value):
+        self._x = value
+    def delx(self):
+        del self._x
+    x = property(getx, setx, delx, "I'm the 'x' property.")
+</pre>
+<p>In addition to this syntax, Python introduces a decorator syntax for
+setting object properties in version 2.6:</p>
+<pre class="literal-block">class C(object):
+    def __init__(self):
+        self._x = None
+
+    @property
+    def x(self):
+        """I'm the 'x' property."""
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+</pre>
+<p>Although the decorator syntax for setting properties is more verbose, it
+an be argued to be clearer than the traditional syntax.</p>
+<p>PySide has support for Qt properties as defined in <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0103.txt">PSEP 103</a>
+<a class="footnote-reference" href="#psep0103" id="id2">[2]</a>. The syntax for defining Qt properties in PySide closely
+mimics the traditional Python property setting syntax above, with the
+exception that Qt properties are defined with the <tt class="docutils literal"><span class="pre">QtCore.Property</span></tt>
+function, which also supports a few extra arguments compared to the
+native <tt class="docutils literal"><span class="pre">property</span></tt> function. Once defined, the PySide Qt properties are also
+usable as Python properties.</p>
+<p>To match the native property decorator syntax, a decorator syntax for
+defining Qt properties will be added to PySide as well. The syntax is
+similar to the native Python property decorator one. Recent PyQt 4.8
+snapshots also have support for a similar syntax, although that has not
+been documented.</p>
+</div>
+<div class="section" id="property-decorator-syntax">
+<h1><a class="toc-backref" href="#id5">Property Decorator Syntax</a></h1>
+<p>The PySide Qt property decorator syntax is similar to the native Python
+property decorators, with the exception that the initial
+<tt class="docutils literal"><span class="pre">QtCore.Property</span></tt> decorator is a function call, accepting any extra
+<tt class="docutils literal"><span class="pre">QtCore.Property</span></tt> arguments as the decorator arguments. The example
+below illustrates how it can be used:</p>
+<pre class="literal-block">class C(QObject):
+    def __init__(self):
+        self._x = None
+
+    xChanged = Signal()
+
+    @Property(float, doc="I'm the 'x' property.", notify=xChanged)
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+</pre>
+<p>The function decorated by the <tt class="docutils literal"><span class="pre">Property</span></tt> decorator defines the
+property name and acts as the property getter function.
+The possible arguments for the <tt class="docutils literal"><span class="pre">Property</span></tt> decorator are given in the
+table below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%">
+<col width="17%">
+<col width="22%">
+<col width="57%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">#</th>
+<th class="head">Name</th>
+<th class="head">Default value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>type</td>
+<td>&nbsp;</td>
+<td>type of the property</td>
+</tr>
+<tr><td>2</td>
+<td>doc</td>
+<td>None</td>
+<td>docstring of the property</td>
+</tr>
+<tr><td>3</td>
+<td>notify</td>
+<td>None</td>
+<td>signal emitted when the property
+value changes</td>
+</tr>
+<tr><td>4</td>
+<td>designable</td>
+<td>True</td>
+<td>value of Qt DESIGNABLE flag</td>
+</tr>
+<tr><td>5</td>
+<td>scriptable</td>
+<td>True</td>
+<td>value of Qt SCRIPTABLE flag</td>
+</tr>
+<tr><td>6</td>
+<td>stored</td>
+<td>True</td>
+<td>value of Qt STORED flag</td>
+</tr>
+<tr><td>7</td>
+<td>user</td>
+<td>False</td>
+<td>value of Qt USER flag</td>
+</tr>
+<tr><td>8</td>
+<td>constant</td>
+<td>False</td>
+<td>value of Qt CONSTANT flag</td>
+</tr>
+<tr><td>9</td>
+<td>final</td>
+<td>False</td>
+<td>value of Qt FINAL flag</td>
+</tr>
+</tbody>
+</table>
+<p>In addition to the arguments given, the defined properties have
+<tt class="docutils literal"><span class="pre">getter</span></tt>, <tt class="docutils literal"><span class="pre">setter</span></tt>, <tt class="docutils literal"><span class="pre">resetter</span></tt>, and <tt class="docutils literal"><span class="pre">deleter</span></tt> attributes that
+can be used to define the respective Qt property functions for that
+property.</p>
+</div>
+<div class="section" id="discussion">
+<h1><a class="toc-backref" href="#id6">Discussion</a></h1>
+<p>Darren Dale noted that redefining the getter decorator is required to
+override the getter in subclasses. Consequently, a getter was added to
+the list of available attributes.</p>
+</div>
+<div class="section" id="compatibility">
+<h1><a class="toc-backref" href="#id7">Compatibility</a></h1>
+<p>The described functionality does not break compatibility to existing
+PySide API and can be added to PySide as soon as it has been
+implemented.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id8">References</a></h1>
+<table class="docutils footnote" frame="void" id="pythonprops" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Reference documentation for Python "property" function
+(<a class="reference external" href="http://docs.python.org/library/functions.html#property">http://docs.python.org/library/functions.html#property</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="psep0103" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0103.txt">PSEP 103</a>: Support for declaring Qt meta-object
+properties, Airas (<a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0103.html">https://pyside.github.io/docs/pseps/psep-0103.html</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="contributors">
+<h1><a class="toc-backref" href="#id9">Contributors</a></h1>
+<p>Darren Dale initially proposed the decorator property syntax on the
+PySide mailing list on 08-Sep-2010.</p>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id10">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+<!-- Local Variables:
+mode: indented-text
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+coding: utf-8
+End: -->
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>

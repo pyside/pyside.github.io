@@ -1,0 +1,235 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0101</h1>
+
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">101</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">Adopt PyQt's API 2 for PySide</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0101.txt">1</a></td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0101.txt">15-Aug-2011</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Mark Summerfield &lt;mark at qtrac.eu&gt;</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Final</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Standards Track</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">14-Apr-2010</td>
+</tr>
+<tr class="field"><th class="field-name">Post-History:</th><td class="field-body">14-Apr-2010, 15-Apr-2010, 16-Apr-2010, 20-Apr-2010, 22-Apr-2010, 18-May-2010</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#abstract" id="id2">Abstract</a></li>
+<li><a class="reference internal" href="#rationale" id="id3">Rationale</a></li>
+<li><a class="reference internal" href="#api-1-vs-api-2" id="id4">API 1 vs. API 2</a><ul>
+<li><a class="reference internal" href="#no-qstring-and-almost-no-qvariant" id="id5">No QString and almost no QVariant</a></li>
+<li><a class="reference internal" href="#changes-to-other-types" id="id6">Changes to Other Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-for-keyword-arguments" id="id7">Support for Keyword Arguments</a></li>
+<li><a class="reference internal" href="#compatibility" id="id8">Compatibility</a></li>
+<li><a class="reference internal" href="#references" id="id9">References</a></li>
+<li><a class="reference internal" href="#contributors" id="id10">Contributors</a></li>
+<li><a class="reference internal" href="#copyright" id="id11">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id2">Abstract</a></h1>
+<p>PyQt4 provides two different (and incompatible) APIs. API 1 is the
+original API and the one supported by PySide. API 2 is a new Python
+3-specific API that is much more Pythonic. This PSEP proposes that
+PySide adopt PyQt4's API 2 for PySide.</p>
+</div>
+<div class="section" id="rationale">
+<h1><a class="toc-backref" href="#id3">Rationale</a></h1>
+<p>PyQt4 provides two different (and incompatbile) APIs <a class="footnote-reference" href="#pyqt-apis" id="id1">[1]</a>. API
+1 is useful for those using PyQt4 to prototype C++/Qt programs since
+it is very close to the C++/Qt API. However, for those who want to create
+Python Qt programs in their own right, and especially for existing Python
+programmers, API 1 is cumbersome and un-Pythonic when it comes to handling
+QStrings and QVariants, both of which are used a lot.</p>
+<p>If PySide were to support API 2, it will make PySide much more attractive
+to Python 3 programmers.</p>
+<p>Also, supporting API 2 will mean that existing Python 3/PyQt4 programs that
+use API 2 by default will be able to switch to PySide.</p>
+<p>One key purpose of API 2 is to avoid the need for Python programmers to
+have to worry or even know about QString or QVariant. For Python
+programmers str is the string they are used to so translation to/from
+QString should be transparent and automatic. Similarly, why should
+Python programmers have to know about QVariant when that is a C++
+workaround for C++'s lack of support for duck typing etc.? Again,
+translation to/from QVariant should be transparent and automatic. API 2
+achieves this and eliminates QString and (to some extent) QVariant.</p>
+</div>
+<div class="section" id="api-1-vs-api-2">
+<h1><a class="toc-backref" href="#id4">API 1 vs. API 2</a></h1>
+<div class="section" id="no-qstring-and-almost-no-qvariant">
+<h2><a class="toc-backref" href="#id5">No QString and almost no QVariant</a></h2>
+<p>The key difference between the APIs is that API 2 does not make QString
+or (to some extent) QVariant available to programmers.</p>
+<p>This means using Python's native string types for strings (e.g., unicode
+for Python 2 and str for Python 3).</p>
+<p>PyQt's approach to dealing with QVariants will be mimicked: Python
+objects are automatically converted to and from QVariants wherever
+QVariants must be passed as arguments and when QVariants are returned.</p>
+<p>By supporting automatic conversion to and from QVariants, any Python
+object (including dicts, lists, and tuples) can be used wherever a
+QVariant is expected, so most programmers most of the time won't have to
+know or care about QVariant at all.</p>
+<p>For QString, API 2 goes beyond simply replacing QString with str (or
+unicode on Python 2). In particular, API 2 also automatically converts
+QChar and QStringRef to and from strs (or unicodes on Python 2). It also
+converts QStringList to and from a Python list of strs (list of unicodes
+on Python 2). (PyQt4's API 2 does not implement QLatin1Char,
+QLatin1String, or QStringMatcher.)</p>
+<p>Native C++/Qt QStrings are mutable, so PyQt4's API 2 has changed the
+signatures of some of the affected functions to return a str (or a tuple
+including a str) when in the C++/Qt API a QString parameter would have been
+modified.</p>
+<p>In addition, API 2 has added two methods to QFontMetrics and QFontMetricsF,
+widthChar() and boundingRectChar(), which take a str of length one and call
+QFontMetrics::width() and QFontMetrics::boundingRect() with a QChar
+argument. These were added because the width of a single character may be
+different from that of a string that contains a single character, even if
+the characters are the same.</p>
+<p>If the need arises during the implementation phase, the QVariant class
+may be added to the API so that programmers can pass a QVariant
+explicitly if they need to. If this is done, to support the creation of
+QVariants, a set of static functions named after the types in
+QVariant.Type will need to be implemented, e.g.:</p>
+<pre class="literal-block">QVariant.fromUInt(pythonObject) -&gt; QVariant
+QVariant.fromInt(pythonObject) -&gt; QVariant
+</pre>
+<p>The benefit of API 2 in this regard is that programmers never have to
+explicitly convert between QString and str, so programmers never get
+caught out accidentally trying to use a QString method on a str or vice
+versa. For the Qt APIs that accept or return QVariants, API 2 allows
+programmers to pass any Python object and when a QVariant is returned
+from Qt it is automatically converted to its original Python type (with
+an invalid QVariant mapped to None).</p>
+</div>
+<div class="section" id="changes-to-other-types">
+<h2><a class="toc-backref" href="#id6">Changes to Other Types</a></h2>
+<p>API 2 also affects some other types, as follows.</p>
+<p>Where QByteArrays are expected, bytes objects can be used, but unlike
+QString, QByteArray has been retained to ease porting from API 1, so in
+API 2 byte sequences can be represented by QByteArray, bytes, and
+bytearray objects.</p>
+<p>QDate, QDateTime, QTime, and QUrl's __hash__() methods return a string
+representation so that identical dates (and identical date/times or times
+or URLs) will have identical hash values.</p>
+<p>QTextStream's bin(), hex(), and oct() functions have been renamed bin_(),
+hex_(), and oct_(), to avoid conflicting with Python's built-ins of the
+same names.</p>
+</div>
+</div>
+<div class="section" id="support-for-keyword-arguments">
+<h1><a class="toc-backref" href="#id7">Support for Keyword Arguments</a></h1>
+<p>PyQt 4.7 adds support for keyword arguments which is very convenient and
+much more Pythonic.</p>
+<p>This change represents an extension to the PyQt APIs that a compatible
+PySide ought to implement.</p>
+<p>One problem with this is that while changes to argument names don't affect
+C++/Qt, they would break the Python API. Furthermore, since changing
+argument names is harmless in C++/Qt, such changes do take place between Qt
+versions. This means that for PySide, sensible names must be used in the
+first place---and stuck to. Naturally, for PyQt compatibility, PySide ought
+to use the same names as PyQt.</p>
+<p>PyQt does not integrate Python and Qt's property systems, but it does allow
+Qt properties to be set when an object is constructed using keyword
+arguments (i.e., where the keyword is the name of a Qt property). The
+same functionality will be implemented in PySide. Also,
+PyQt provides the pyqtConfigure() method for all objects that have
+Qt properties: this method can be called at any time and the object's Qt
+properties set by passing it keyword arguments. However, since
+essentially the same functionality is already provided by
+QObject.setProperty() and .property() methods, pyqtConfigure() will not be
+implemented as part of this PSEP.</p>
+</div>
+<div class="section" id="compatibility">
+<h1><a class="toc-backref" href="#id8">Compatibility</a></h1>
+<p>The proposed API 2 is incompatible with API 1, but since PySide is not
+yet widely used and hasn't reached version 1.0.0, it seems reasonable to
+break compatibility for the sake of getting PySide "right". Furthermore,
+if API 2 is adopted it means that PySide programs will have the same API
+whether Python 2 or Python 3 is used which will make it much easier for
+those who start out with PySide and Python 2 and later on port to Python
+3---something that isn't so easy with PyQt.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id9">References</a></h1>
+<table class="docutils footnote" frame="void" id="pyqt-apis" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>PyQt v4 Reference Manual: Potential Incompatibilities
+section, Selecting Incompatible APIs section, Support for Keyword
+Arguments section, and Support for Qt Properties section
+(<a class="reference external" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html">http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="contributors">
+<h1><a class="toc-backref" href="#id10">Contributors</a></h1>
+<p>Richard Dale and Detlev Offenbach pointed out that QByteArray had been
+retained in API 2.</p>
+<p>Richard Dale and Lauro Moura gave suggestions regarding QVariant.</p>
+<p>Hugo Lima proposed choosing one of PyQt's alternative APIs and implementing
+only that for both Python 2 and Python 3 PySide versions.</p>
+<p>The section of Exceptions was dropped as a result of feedback from Matti
+Airas; Matti also added to the discussion in numerous ways.</p>
+<p>Detlev Offenbach also contributed to the discussion on Compatibility.</p>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id11">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>

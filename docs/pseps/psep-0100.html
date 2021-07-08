@@ -1,0 +1,225 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0100</h1>
+
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">100</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">New-style Signals and Slots</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0100.txt">1</a></td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0100.txt">15-Aug-2011</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Matti Airas &lt;matti.p.airas at nokia.com&gt;</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Final</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Standards Track</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">30-Oct-2009</td>
+</tr>
+<tr class="field"><th class="field-name">Post-History:</th><td class="field-body">30-Oct-2009, 03-Nov-2009, 24-May-2010</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#abstract" id="id5">Abstract</a></li>
+<li><a class="reference internal" href="#rationale" id="id6">Rationale</a></li>
+<li><a class="reference internal" href="#new-signal-and-slot-syntax" id="id7">New Signal and Slot Syntax</a></li>
+<li><a class="reference internal" href="#differences-from-pyqt-s-syntax" id="id8">Differences from PyQt's syntax</a></li>
+<li><a class="reference internal" href="#compatibility" id="id9">Compatibility</a></li>
+<li><a class="reference internal" href="#references" id="id10">References</a></li>
+<li><a class="reference internal" href="#contributors" id="id11">Contributors</a></li>
+<li><a class="reference internal" href="#copyright" id="id12">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h1><a class="toc-backref" href="#id5">Abstract</a></h1>
+<p>This PSEP describes the support of PyQt's new-style signals and slots in
+PySide. Traditionally PyQt, and by extension PySide, has required the
+use of C++ function signature strings in connecting signals to slots.
+This has been widely regarded as unwieldy and non-Pythonic. A new-style
+signal and slot support was introduced in PyQt 4.5, in which the signals
+and slots may be manipulated using native Python objects and methods.
+This new syntax will be adopted to PySide with minor modifications.</p>
+</div>
+<div class="section" id="rationale">
+<h1><a class="toc-backref" href="#id6">Rationale</a></h1>
+<p>The PyQt's traditional syntax for signals and slots requires the use of
+explicit C++ style signal signatures <a class="footnote-reference" href="#old-style-signals" id="id1">[1]</a>. This has
+been regarded as unwieldy and non-Pythonic feature and an opportunity
+for improvement in the syntax.</p>
+<p>A new-style signal and slot syntax has been introduced in PyQt 4.5
+<a class="footnote-reference" href="#new-style-signals" id="id2">[2]</a>. The new style provides a clean syntax to connect
+signals and slots using Python objects and methods instead of C++ style
+signature strings. An example of connecting and emitting signals using
+the new-style syntax is given below (adapted from <a class="footnote-reference" href="#new-style-signals" id="id3">[2]</a>):</p>
+<pre class="literal-block">class Foo(QtCore.QObject):
+
+    # Define a new signal called 'trigger' that has no arguments.
+    trigger = QtCore.pyqtSignal()
+
+    def connect_and_emit_trigger(self):
+        # Connect the trigger signal to a slot.
+        self.trigger.connect(self.handle_trigger)
+
+        # Emit the signal.
+        self.trigger.emit()
+
+    def handle_trigger(self):
+        # Show that the slot has been called.
+
+        print "trigger signal received"
+</pre>
+<p>PyQt's new-style signal and slot mechanism provides a clean, concise,
+and Pythonic syntax for defining, connecting, disconnecting, and
+emitting signals.  To maintain compatibility with PyQt, their new-style
+signal and slot mechanism will be adopted to PySide with minor
+modifications only.</p>
+</div>
+<div class="section" id="new-signal-and-slot-syntax">
+<h1><a class="toc-backref" href="#id7">New Signal and Slot Syntax</a></h1>
+<p>PySide will adopt PyQt's new signal and slot syntax as-is. The PySide
+implementation will be functionally compatible with the PyQt 4.5 one, with
+the exceptions listed in the next Section. As PyQt compatibility will be
+the main guideline, the syntax specifics will not be described here.
+Instead, PyQt behaviour and documentation <a class="footnote-reference" href="#new-style-signals" id="id4">[2]</a> shall be
+used as implementation guidelines.</p>
+</div>
+<div class="section" id="differences-from-pyqt-s-syntax">
+<h1><a class="toc-backref" href="#id8">Differences from PyQt's syntax</a></h1>
+<p>PyQt's new signal and slot style utilizes method and decorator names
+specific to their implementation. These will be generalized according to
+the table below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%">
+<col width="52%">
+<col width="31%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Module</th>
+<th class="head">PyQt factory function</th>
+<th class="head">PySide class</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>QtCore</td>
+<td>pyqtSignal</td>
+<td>Signal</td>
+</tr>
+<tr><td>QtCore</td>
+<td>pyqtSlot</td>
+<td>Slot</td>
+</tr>
+</tbody>
+</table>
+<p>In addition to the generalized class names, PyQt factory names will be
+provided as a compatibility feature. They will print out a deprecation
+warning, however.</p>
+<p>On the mailing list discussion, concerns were raised about the proposed
+naming scheme. One issue was the risk of Qt implementing similarly named
+C++ classes, resulting in name clashes in PySide.  However, the risk may
+be regarded minor during the lifespan of Qt version 4, especially now
+that the signals and slots are classes and are written in the
+capitalized form. Even in the case this would happen, the issue could be
+circumvented in PySide by renaming the new C++ classes suitably.</p>
+<p>Another issue raised was the similarity of <tt class="docutils literal"><span class="pre">Signal</span></tt> and <tt class="docutils literal"><span class="pre">SIGNAL</span></tt> (as
+well as <tt class="docutils literal"><span class="pre">Slot</span></tt> and <tt class="docutils literal"><span class="pre">SLOT</span></tt>) class and function names in QtCore. While
+the similarity is undeniably an issue, it could still be argued that the
+case difference is substantial enough to minimize any risk of confusion
+in practice. It could be argued that the non-Pythonic all-caps spelling
+refers to the old-style signals and slots, while the standard spelling
+refers to the Pythonic new-style signals.</p>
+</div>
+<div class="section" id="compatibility">
+<h1><a class="toc-backref" href="#id9">Compatibility</a></h1>
+<p>Since the new signal and slot syntax does not break compatibility with
+the previous syntax, it will be implemented both as part of the original
+and the possible future PySide API.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id10">References</a></h1>
+<table class="docutils footnote" frame="void" id="old-style-signals" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>PyQt v4 Reference Manual, Section Old-style
+Signal and Slot Support
+(<a class="reference external" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html#old-style-signal-and-slot-support">http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html#old-style-signal-and-slot-support</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="new-style-signals" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>, <a class="fn-backref" href="#id4">3</a>)</em> PyQt v4 Reference Manual, Section New-style
+Signal and Slot Support
+(<a class="reference external" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html#new-style-signal-and-slot-support">http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/pyqt4ref.html#new-style-signal-and-slot-support</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="contributors">
+<h1><a class="toc-backref" href="#id11">Contributors</a></h1>
+<p>Hugo Lima, Mark Summerfield, Ville M. Vainio, Paul A. Giannaros, and
+Douglas Soares de Andrade have contributed in the initial discussion of
+this PSEP.</p>
+<p>After having the PSEP already accepted, Hugo Lima pointed out a naming
+scheme inconsistency, which caused the PSEP to be redrawn to the draft
+status to have the classes properly capitalized.</p>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id12">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+<!-- Local Variables:
+mode: indented-text
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+coding: utf-8
+End: -->
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<html>
+<head>
+<title>PySide docs</title>
+<link rel="stylesheet" href="../pyside/_static/pysidedocs.css" type="text/css">
+</head>
+<body>
+<div id="container">
+<div class="header">
+    <div class="header_container">
+        <div class="logo"><a href="http://pyside.github.io"><img alt="PySide" src="../pyside/_static/pysidelogo.png" width="199" height="102"></a></div>
+        <div class="related">
+            <ul>
+                <li><a href="#">PySide documentation</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            <div class="section">
+<h1>PSEP 0001</h1>
+
+<table class="rfc2822 docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">PSEP:</th><td class="field-body">1</td>
+</tr>
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">PSEP Purpose and Guidelines</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0001.txt">1</a></td>
+</tr>
+<tr class="field"><th class="field-name">Last-Modified:</th><td class="field-body"><a class="reference external" href="http://qt.gitorious.org/pyside/pseps/blobs/history/master/psep-0001.txt">15-Aug-2011</a></td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Matti Airas</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Active</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">Process</td>
+</tr>
+<tr class="field"><th class="field-name">Content-Type:</th><td class="field-body"><a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">text/x-rst</a></td>
+</tr>
+<tr class="field"><th class="field-name">Created:</th><td class="field-body">23-Sep-2009</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#what-is-a-psep" id="id18">What is a PSEP?</a></li>
+<li><a class="reference internal" href="#psep-types" id="id19">PSEP Types</a></li>
+<li><a class="reference internal" href="#psep-work-flow" id="id20">PSEP Work Flow</a></li>
+<li><a class="reference internal" href="#what-belongs-in-a-successful-psep" id="id21">What belongs in a successful PSEP?</a></li>
+<li><a class="reference internal" href="#psep-formats-and-templates" id="id22">PSEP Formats and Templates</a></li>
+<li><a class="reference internal" href="#psep-header-preamble" id="id23">PSEP Header Preamble</a></li>
+<li><a class="reference internal" href="#auxiliary-files" id="id24">Auxiliary Files</a></li>
+<li><a class="reference internal" href="#reporting-psep-bugs-or-submitting-psep-updates" id="id25">Reporting PSEP Bugs, or Submitting PSEP Updates</a></li>
+<li><a class="reference internal" href="#transferring-psep-ownership" id="id26">Transferring PSEP Ownership</a></li>
+<li><a class="reference internal" href="#psep-editor-responsibilities-workflow" id="id27">PSEP Editor Responsibilities &amp; Workflow</a></li>
+<li><a class="reference internal" href="#references-and-footnotes" id="id28">References and Footnotes</a></li>
+<li><a class="reference internal" href="#copyright" id="id29">Copyright</a></li>
+</ul>
+</div>
+<div class="section" id="what-is-a-psep">
+<h1><a class="toc-backref" href="#id18">What is a PSEP?</a></h1>
+<p>PSEP stands for PySide Enhancement Proposal.  A PSEP is a design
+document providing information to the PySide community, or describing
+a new feature for PySide or its processes or environment.  The PSEP
+should provide a concise technical specification of the feature and a
+rationale for the feature.</p>
+<p>We intend PSEPs to be the primary mechanisms for proposing new
+features, for collecting community input on an issue, and for
+documenting the design decisions that have gone into PySide.  The PSEP
+author is responsible for building consensus within the community and
+documenting dissenting opinions.</p>
+<p>Because the PSEPs are maintained as text files in a versioned
+repository, their revision history is the historical record of the
+feature proposal <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
+<p>The whole PSEP process has been copied verbatim from Python's PEP
+(Python Enhancement Proposal) process, and this document has been
+adapted to PSEP by Matti Airas from PEP 1 by Barry Warsaw, Jeremy
+Hylton, and David Goodger.</p>
+</div>
+<div class="section" id="psep-types">
+<h1><a class="toc-backref" href="#id19">PSEP Types</a></h1>
+<p>There are three kinds of PSEP:</p>
+<ol class="arabic simple">
+<li>A <strong>Standards Track</strong> PSEP describes a new feature or implementation
+for PySide.</li>
+<li>An <strong>Informational</strong> PSEP describes a PySide design issue, or
+provides general guidelines or information to the PySide community,
+but does not propose a new feature.  Informational PSEPs do not
+necessarily represent a PySide community consensus or
+recommendation, so users and implementors are free to ignore
+Informational PSEPs or follow their advice.</li>
+<li>A <strong>Process</strong> PSEP describes a process surrounding PySide, or
+proposes a change to (or an event in) a process.  Process PSEPs are
+like Standards Track PSEPs but apply to areas other than the PySide
+itself.  They may propose an implementation, but not to
+PySide's codebase; they often require community consensus; unlike
+Informational PSEPs, they are more than recommendations, and users
+are typically not free to ignore them.  Examples include
+procedures, guidelines, changes to the decision-making process, and
+changes to the tools or environment used in Python development.
+Any meta-PSEP is also considered a Process PSEP.</li>
+</ol>
+</div>
+<div class="section" id="psep-work-flow">
+<h1><a class="toc-backref" href="#id20">PSEP Work Flow</a></h1>
+<p>The PSEP editors assign PSEP numbers and change their status.  The
+current PSEP editor is Matti Airas.  Please send
+all PSEP-related email to &lt;<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>&gt; (no cross-posting please).
+Also see <a class="reference internal" href="#psep-editor-responsibilities-workflow">PSEP Editor Responsibilities &amp; Workflow</a> below.</p>
+<p>The PSEP process begins with a new idea for PySide.  It is highly
+recommended that a single PSEP contain a single key proposal or new
+idea.  The more focussed the PSEP, the more successful it tends to
+be.  The PSEP editor reserves the right to reject PSEP proposals if they
+appear too unfocussed or too broad.  If in doubt, split your PSEP into
+several well-focussed ones.</p>
+<p>Each PSEP must have a champion -- someone who writes the PSEP using the
+style and format described below, shepherds the discussions in the
+appropriate forums, and attempts to build community consensus around the
+idea.  The PSEP champion (a.k.a. Author) should first attempt to
+ascertain whether the idea is PSEP-able.  Posting to the
+<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a> mailing list is recommended.  Enhancements not
+resulting in API changes usually don't need a PSEP and can be injected
+into the PySide development work flow with a patch submission to the
+PySide <a class="reference external" href="http://bugs.openbossa.org/">issue tracker</a> <a class="footnote-reference" href="#id8" id="id9">[4]</a>.</p>
+<p>The PSEP champion then emails the PSEP editor &lt;<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>&gt; with a
+proposed title and a rough, but fleshed out, draft of the PSEP.  This
+draft must be written in PSEP style as described below.</p>
+<p>If the PSEP editor approves, he will assign the PSEP a number, label it
+as Standards Track, Informational, or Process, give it status "Draft",
+and create and check-in the initial draft of the PSEP.  The PSEP editor
+will not unreasonably deny a PSEP.  Reasons for denying PSEP status
+include duplication of effort, being technically unsound, not providing
+proper motivation or addressing backwards compatibility, or not in
+keeping with the PySide philosophy.  The TBC (Temporary Benevolent
+Committee, consisting of the core dev team and Matti Airas) can be consulted
+during the approval phase, and is the final arbiter of the draft's
+PSEP-ability.</p>
+<p>If a pre-PSEP is rejected, the author may elect to take the pre-PSEP to
+the <a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a> mailing list to help flesh it out, gain feedback
+and consensus from the community at large, and improve the PSEP for
+re-submission.</p>
+<p>The author of the PSEP is then responsible for posting the PSEP to the
+community forums, and marshaling community support for it.  As updates
+are necessary, the PSEP author can check in new versions if they have
+SVN commit permissions, or can email new PSEP versions to the PSEP
+editor for committing.</p>
+<p>Standards Track PSEPs consist of two parts, a design document and a
+reference implementation.  The PSEP should be reviewed and accepted
+before a reference implementation is begun, unless a reference
+implementation will aid people in studying the PSEP.  Standards Track
+PSEPs must include an implementation -- in the form of code, a patch,
+or a URL to same -- before it can be considered Final.</p>
+<p>PSEP authors are responsible for collecting community feedback on a PSEP
+before submitting it for review.  A PSEP that has not been discussed on
+<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a> will not be
+accepted.  However, wherever possible, long open-ended discussions on
+public mailing lists should be avoided.  Strategies to keep the
+discussions efficient include: setting up a separate SIG mailing list
+for the topic, having the PSEP author accept private comments in the
+early design phases, setting up a wiki page, etc.  PSEP authors should
+use their discretion here.</p>
+<p>Once the authors have completed a PSEP, they must inform the PSEP editor
+that it is ready for review.  PSEPs are reviewed by the TBC, who may
+accept or reject a PSEP or send it back to the author(s) for revision.
+For a PSEP that is pre-determined to be acceptable (e.g., it is an
+obvious win as-is and/or its implementation has already been checked in)
+the TBC may also initiate a PSEP review, first notifying the PSEP
+author(s) and giving them a chance to make revisions.</p>
+<p>For a PSEP to be accepted it must meet certain minimum criteria.  It
+must be a clear and complete description of the proposed enhancement.
+The enhancement must represent a net improvement.  The proposed
+implementation, if applicable, must be solid and must not complicate the
+interpreter unduly.  Finally, a proposed enhancement must properly
+balance the "pythonicity" and "Qt-likeness" in order to be accepted by
+the TBC.  (However, "pythonic" and "Qt-likeness" are imprecise terms;
+they may be defined as whatever is acceptable to the TBC.  This logic is
+intentionally circular.)</p>
+<p>Once a PSEP has been accepted, the reference implementation must be
+completed.  When the reference implementation is complete and accepted
+by the TBC, the status will be changed to "Final".</p>
+<p>A PSEP can also be assigned status "Deferred".  The PSEP author or
+editor can assign the PSEP this status when no progress is being made
+on the PSEP.  Once a PSEP is deferred, the PSEP editor can re-assign it
+to draft status.</p>
+<p>A PSEP can also be "Rejected".  Perhaps after all is said and done it
+was not a good idea.  It is still important to have a record of this
+fact.</p>
+<p>PSEPs can also be replaced by a different PSEP, rendering the original
+obsolete.  This is intended for Informational PSEPs, where version 2 of
+an API can replace version 1.</p>
+<p>The possible paths of the status of PSEPs are as follows:</p>
+<img alt="psep-0001-1.png" src="psep-0001-1.png">
+<p>Some Informational and Process PSEPs may also have a status of "Active"
+if they are never meant to be completed.  E.g. <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0001.txt">PSEP 1</a> (this PSEP).</p>
+</div>
+<div class="section" id="what-belongs-in-a-successful-psep">
+<h1><a class="toc-backref" href="#id21">What belongs in a successful PSEP?</a></h1>
+<p>Each PSEP should have the following parts:</p>
+<ol class="arabic">
+<li><p class="first">Preamble -- <a class="reference external" href="http://www.faqs.org/rfcs/rfc822.html">RFC 822</a> style headers containing meta-data about the
+PSEP, including the PSEP number, a short descriptive title (limited
+to a maximum of 44 characters), the names, and optionally the
+contact info for each author, etc.</p>
+</li>
+<li><p class="first">Abstract -- a short (~200 word) description of the technical issue
+being addressed.</p>
+</li>
+<li><p class="first">Copyright/public domain -- Each PSEP must either be explicitly
+labelled as placed in the public domain (see this PSEP as an
+example) or licensed under the <a class="reference external" href="http://www.opencontent.org/openpub/">Open Publication License</a> <a class="footnote-reference" href="#id11" id="id12">[5]</a>.</p>
+</li>
+<li><p class="first">Specification -- The technical specification should describe the
+syntax and semantics of any new API feature.  The
+specification should be detailed enough to allow competing,
+interoperable implementations for any of the current Python Qt
+bindings.</p>
+</li>
+<li><p class="first">Motivation -- The motivation is critical for PSEPs that want to
+change the PySide API.  It should clearly explain why the
+existing API is inadequate to address the
+problem that the PSEP solves.  PSEP submissions without sufficient
+motivation may be rejected outright.</p>
+</li>
+<li><p class="first">Rationale -- The rationale fleshes out the specification by
+describing what motivated the design and why particular design
+decisions were made.  It should describe alternate designs that
+were considered and related work, e.g. how the feature is supported
+in other languages.</p>
+<p>The rationale should provide evidence of consensus within the
+community and discuss important objections or concerns raised
+during discussion.</p>
+</li>
+<li><p class="first">Backwards Compatibility -- All PSEPs that introduce backwards
+incompatibilities must include a section describing these
+incompatibilities and their severity.  The PSEP must explain how the
+author proposes to deal with these incompatibilities.  PSEP
+submissions without a sufficient backwards compatibility treatise
+may be rejected outright.</p>
+</li>
+<li><p class="first">Reference Implementation -- The reference implementation must be
+completed before any PSEP is given status "Final", but it need not
+be completed before the PSEP is accepted.  It is better to finish
+the specification and rationale first and reach consensus on it
+before writing code.</p>
+<p>The final implementation must include test code and documentation
+appropriate for either the PySide API reference or the respective
+generator tool reference.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="psep-formats-and-templates">
+<h1><a class="toc-backref" href="#id22">PSEP Formats and Templates</a></h1>
+<p>As opposed to PEP, there is only one PSEP format available to authors:
+<a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> <a class="footnote-reference" href="#id13" id="id14">[6]</a>.  <a class="reference external" href="http://docutils.sourceforge.net/rst.html">ReStructuredText</a> <a class="footnote-reference" href="#id13" id="id15">[6]</a> PSEPs allow for rich markup that
+is still quite easy to read, but results in much better-looking and more
+functional HTML.  <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">PSEP 12</a> contains instructions and a template <a class="footnote-reference" href="#id6" id="id2">[2]</a> for
+reStructuredText PSEPs.</p>
+<p>There is a Python script that converts PSEPs to HTML for
+viewing on the web <a class="footnote-reference" href="#id7" id="id3">[3]</a>.  reStructuredText PSEPs are parsed
+and converted by <a class="reference external" href="http://docutils.sourceforge.net/">Docutils</a> <a class="footnote-reference" href="#id16" id="id17">[7]</a> code called from the script.</p>
+</div>
+<div class="section" id="psep-header-preamble">
+<h1><a class="toc-backref" href="#id23">PSEP Header Preamble</a></h1>
+<p>Each PSEP must begin with an <a class="reference external" href="http://www.faqs.org/rfcs/rfc822.html">RFC 822</a> style header preamble.  The headers
+must appear in the following order.  Headers marked with "*" are
+optional and are described below.  All other headers are required.</p>
+<pre class="literal-block">  PSEP: &lt;psep number&gt;
+  Title: &lt;psep title&gt;
+  Last-Modified: &lt;svn date string&gt;
+  Author: &lt;list of authors' real names and optionally, email addrs&gt;
+* Discussions-To: &lt;email address&gt;
+  Status: &lt;Draft | Active | Accepted | Deferred | Rejected |
+           Withdrawn | Final | Replaced&gt;
+  Type: &lt;Standards Track | Informational | Process&gt;
+* Content-Type: &lt;text/plain | text/x-rst&gt;
+* Requires: &lt;psep numbers&gt;
+  Created: &lt;date created on, in dd-mmm-yyyy format&gt;
+* Python-Version: &lt;version number&gt;
+  Post-History: &lt;dates of postings to python-list and python-dev&gt;
+* Replaces: &lt;psep number&gt;
+* Replaced-By: &lt;psep number&gt;
+</pre>
+<p>The Author header lists the names, and optionally the email addresses
+of all the authors/owners of the PSEP.  The format of the Author header
+value must be</p>
+<blockquote>
+Random J. User &lt;<a class="reference external" href="mailto:address@dom.ain">address@dom.ain</a>&gt;</blockquote>
+<p>if the email address is included, and just</p>
+<blockquote>
+Random J. User</blockquote>
+<p>if the address is not given.  New PSEPs must use the mandated format
+above.</p>
+<p>If there are multiple authors, each should be on a separate line
+following <a class="reference external" href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a> continuation line conventions.  Note that personal
+email addresses in PSEPs will be obscured as a defense against spam
+harvesters.</p>
+<p>While a PSEP is in private discussions (usually during the initial
+Draft phase), a Discussions-To header will indicate the mailing list
+or URL where the PSEP is being discussed.  No Discussions-To header is
+necessary if the PSEP is being discussed privately with the author, or
+on the <a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a> mailing list.  Note that email
+addresses in the Discussions-To header will not be obscured.</p>
+<p>The Type header specifies the type of PSEP: Standards Track,
+Informational, or Process.</p>
+<p>The format of a PSEP is specified with a Content-Type header.  The only
+acceptable values is "text/x-rst" for reStructuredText PSEPs (see <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0012.txt">PSEP
+12</a> <a class="footnote-reference" href="#id6" id="id4">[2]</a>).</p>
+<p>The Created header records the date that the PSEP was assigned a
+number, while Post-History is used to record the dates of when new
+versions of the PSEP are posted to python-list and/or python-dev.  Both
+headers should be in dd-mmm-yyyy format, e.g. 14-Aug-2001.</p>
+<p>TODO: How should we deal with different Python, Qt, and PySide versions?</p>
+<p><em>Standards Track PSEPs must have a Python-Version header which indicates
+the version of Python that the feature will be released with.
+Informational and Process PSEPs do not need a Python-Version header.</em></p>
+<p>PSEPs may have a Requires header, indicating the PSEP numbers that this
+PSEP depends on.</p>
+<p>PSEPs may also have a Replaced-By header indicating that a PSEP has been
+rendered obsolete by a later document; the value is the number of the
+PSEP that replaces the current document.  The newer PSEP must have a
+Replaces header containing the number of the PSEP that it rendered
+obsolete.</p>
+</div>
+<div class="section" id="auxiliary-files">
+<h1><a class="toc-backref" href="#id24">Auxiliary Files</a></h1>
+<p>PSEPs may include auxiliary files such as diagrams.  Such files must be
+named <tt class="docutils literal"><span class="pre">psep-XXXX-Y.ext</span></tt>, where "XXXX" is the PSEP number, "Y" is a
+serial number (starting at 1), and "ext" is replaced by the actual
+file extension (e.g. "png").</p>
+</div>
+<div class="section" id="reporting-psep-bugs-or-submitting-psep-updates">
+<h1><a class="toc-backref" href="#id25">Reporting PSEP Bugs, or Submitting PSEP Updates</a></h1>
+<p>How you report a bug, or submit a PSEP update depends on several
+factors, such as the maturity of the PSEP, the preferences of the PSEP
+author, and the nature of your comments.  For the early draft stages
+of the PSEP, it's probably best to send your comments and changes
+directly to the PSEP author.  For more mature, or finished PSEPs you may
+want to submit corrections to the PySide <a class="reference external" href="http://bugs.openbossa.org/">issue tracker</a> <a class="footnote-reference" href="#id8" id="id10">[4]</a> so that your
+changes don't get lost.  If the PSEP author is a PySide developer, assign the
+bug/patch to him, otherwise assign it to the PSEP editor.</p>
+<p>When in doubt about where to send your changes, please check first
+with the PSEP author and/or PSEP editor.</p>
+<p>PSEP authors who have write permissions to the Gitorious repository can
+push the changes to the repository themselves.</p>
+</div>
+<div class="section" id="transferring-psep-ownership">
+<h1><a class="toc-backref" href="#id26">Transferring PSEP Ownership</a></h1>
+<p>It occasionally becomes necessary to transfer ownership of PSEPs to a
+new champion.  In general, we'd like to retain the original author as
+a co-author of the transferred PSEP, but that's really up to the
+original author.  A good reason to transfer ownership is because the
+original author no longer has the time or interest in updating it or
+following through with the PSEP process, or has fallen off the face of
+the 'net (i.e. is unreachable or not responding to email).  A bad
+reason to transfer ownership is because you don't agree with the
+direction of the PSEP.  We try to build consensus around a PSEP, but if
+that's not possible, you can always submit a competing PSEP.</p>
+<p>If you are interested in assuming ownership of a PSEP, send a message
+asking to take over, addressed to both the original author and the PSEP
+editor &lt;<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>&gt;.  If the original author doesn't respond to
+email in a timely manner, the PSEP editor will make a unilateral
+decision (it's not like such decisions can't be reversed :).</p>
+</div>
+<div class="section" id="psep-editor-responsibilities-workflow">
+<h1><a class="toc-backref" href="#id27">PSEP Editor Responsibilities &amp; Workflow</a></h1>
+<p>A PSEP editor must subscribe to the &lt;<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>&gt; list.  All
+PSEP-related correspondence should be sent (or CC'd) to
+&lt;<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>&gt; (but please do not cross-post!).</p>
+<p>For each new PSEP that comes in an editor does the following:</p>
+<ul class="simple">
+<li>Read the PSEP to check if it is ready: sound and complete.  The ideas
+must make technical sense, even if they don't seem likely to be
+accepted.</li>
+<li>The title should accurately describe the content.</li>
+<li>Edit the PSEP for language (spelling, grammar, sentence structure,
+etc.), markup (for reST PSEPs), code style (examples should match <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0008.txt">PSEP
+8</a> &amp; 7).</li>
+</ul>
+<p>If the PSEP isn't ready, the editor will send it back to the author for
+revision, with specific instructions.</p>
+<p>Once the PSEP is ready for the repository, the PSEP editor will:</p>
+<ul class="simple">
+<li>Assign a PSEP number (almost always just the next available number,
+but sometimes it's a special/joke number, like 666 or 3141).</li>
+<li>List the PSEP in <a class="reference external" href="https://pyside.github.io/docs/pseps/psep-0000.txt">PSEP 0</a> (in two places: the categorized list, and the
+numeric list).</li>
+<li>Add the PSEP to the Git repository. To clone a copy of the Git
+repository, see <a class="reference external" href="http://qt.gitorious.org/pyside">the PySide Gitorious page</a>.</li>
+<li>Monitor python.org to make sure the PSEP gets added to the site
+properly.</li>
+<li>Send email back to the PSEP author with next steps (post to
+<a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>).</li>
+</ul>
+<p>Updates to existing PSEPs also come in to <a class="reference external" href="mailto:pyside@lists.openbossa.org">pyside@lists.openbossa.org</a>.
+Alternatively, Gitorious merge requests may be made directly.</p>
+<p>Many PSEPs are written and maintained by developers with write access to
+the PySide repository.  The PSEP editors monitor the repository PSEP
+changes, and correct any structure, grammar, spelling, or markup
+mistakes we see.</p>
+<p>The editors don't pass judgement on PSEPs.  We merely do the
+administrative &amp; editorial part.  Except for times like this, there's
+relatively low volume.</p>
+</div>
+<div class="section" id="references-and-footnotes">
+<h1><a class="toc-backref" href="#id28">References and Footnotes</a></h1>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>This historical record is available by the normal Git commands
+for retrieving older revisions.  For those without direct access to
+the Git tree, you can browse the current and past PSEP revisions here:
+<a class="reference external" href="http://qt.gitorious.org/pyside/pseps">http://qt.gitorious.org/pyside/pseps</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> PEP 12, Sample reStructuredText PSEP Template, Goodger, Warsaw
+(<a class="reference external" href="http://www.python.org/dev/peps/pep-0012">http://www.python.org/dev/peps/pep-0012</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>The script referred to here is pep2pyramid.py, the successor to
+pep2html.py, both of which live in the same directory in the Git
+tree as the PEPs themselves.  Try <tt class="docutils literal"><span class="pre">pep2html.py</span> <span class="pre">--help</span></tt> for
+details.  The URL for viewing PEPs on the web is
+<a class="reference external" href="http://www.python.org/dev/peps/">http://www.python.org/dev/peps/</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><em>(<a class="fn-backref" href="#id9">1</a>, <a class="fn-backref" href="#id10">2</a>)</em> <a class="reference external" href="http://bugs.openbossa.org/">http://bugs.openbossa.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[5]</a></td><td><a class="reference external" href="http://www.opencontent.org/openpub/">http://www.opencontent.org/openpub/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><em>(<a class="fn-backref" href="#id14">1</a>, <a class="fn-backref" href="#id15">2</a>)</em> <a class="reference external" href="http://docutils.sourceforge.net/rst.html">http://docutils.sourceforge.net/rst.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id17">[7]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/">http://docutils.sourceforge.net/</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="copyright">
+<h1><a class="toc-backref" href="#id29">Copyright</a></h1>
+<p>This document has been placed in the public domain.</p>
+<!-- Local Variables:
+mode: indented-text
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+coding: utf-8
+End: -->
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+</div>
+<div class="footer">
+    <a href="http://www.indt.org.br"><img src="../pyside/_static/logo_indt.jpg" alt="Indt" border="0"></a>
+    <a href="http://www.openbossa.org"><img src="../pyside/_static/logo_openbossa.png" alt="Openbossa" border="0"></a>
+    <a href="http://qt.nokia.com/"><img src="../pyside/_static/logo_qt.png" alt="Qt" border="0"></a>
+    <a href="http://www.python.org"><img src="../pyside/_static/logo_python.jpg" alt="Python" border="0"></a>
+    </div>
+</body>
+</html>
